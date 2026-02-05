@@ -13,7 +13,7 @@ CREATE TABLE participants (
   event_id      BIGINT       NOT NULL REFERENCES events (id) ON DELETE CASCADE,
   first_name    VARCHAR(100) NOT NULL,
   last_name     VARCHAR(100) NOT NULL,
-  personal_code CHAR(11)     NOT NULL,
+  personal_code VARCHAR(11)  NOT NULL,
   created_at    TIMESTAMPTZ  NOT NULL DEFAULT now(),
 
   CONSTRAINT uq_participant_event UNIQUE (event_id, personal_code)
