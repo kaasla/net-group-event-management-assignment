@@ -17,9 +17,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-/**
- * JPA entity representing a participant registered for an event.
- */
 @Entity
 @Table(name = "participants")
 @Getter

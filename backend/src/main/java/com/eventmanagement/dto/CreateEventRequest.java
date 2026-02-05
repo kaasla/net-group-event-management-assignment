@@ -7,9 +7,6 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
-/**
- * Request payload for creating a new event.
- */
 public record CreateEventRequest(
         @NotBlank(message = "Event name is required")
         String name,

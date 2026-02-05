@@ -2,9 +2,6 @@ package com.eventmanagement.dto;
 
 import jakarta.validation.constraints.NotBlank;
 
-/**
- * Request payload for registering a participant to an event.
- */
 public record RegistrationRequest(
         @NotBlank(message = "First name is required")
         String firstName,

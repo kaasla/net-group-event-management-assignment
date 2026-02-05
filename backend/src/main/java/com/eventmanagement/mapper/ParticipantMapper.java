@@ -5,9 +5,6 @@ import com.eventmanagement.entity.Participant;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
-/**
- * Pure mapping functions between Participant entities and DTOs.
- */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class ParticipantMapper {
 
