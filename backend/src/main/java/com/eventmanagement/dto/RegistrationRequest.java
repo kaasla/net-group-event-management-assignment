@@ -1,5 +1,7 @@
 package com.eventmanagement.dto;
 
+import com.eventmanagement.validation.ValidPersonalCode;
+
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -17,8 +19,8 @@ public record RegistrationRequest(
         String lastName,
 
         @NotBlank(message = "Personal code is required")
-        @Size(min = 11, max = 11, message = "Personal code must be exactly 11 digits")
-        @Schema(description = "Estonian personal identification code (isikukood)", example = "49403136515")
+        @ValidPersonalCode
+        @Schema(description = "Estonian personal identification code", example = "49403136515")
         String personalCode
 ) {
 }
