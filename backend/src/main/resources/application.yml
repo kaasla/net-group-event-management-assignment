@@ -33,7 +33,7 @@ server:
 app:
   admin:
     email: admin@eventmanagement.com
-    password: $2a$12$LJ3m4ys3uz4CjFGv6DJt3u8HdBFQgjzFCmVMYhOSJfbzANBSoyDYi # admin123
+    password: "$2a$10$4GV02If8rNzXvgGd85GzSuF/fBZw4QCXLJWS9SSdxdDjhHAbBHPE2" # admin123
   jwt:
     secret: a5f8d2e1b4c7a0e3f6d9b2c5a8e1d4f7b0c3a6e9d2f5b8c1a4e7d0f3b6c9a2e5
     expiration-ms: 3600000
