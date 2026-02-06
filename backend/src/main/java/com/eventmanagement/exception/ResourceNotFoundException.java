@@ -10,6 +10,6 @@ public class ResourceNotFoundException extends RuntimeException {
     }
 
     public static ResourceNotFoundException event(Long id) {
-        return new ResourceNotFoundException("Event not found with id: " + id);
+        return new ResourceNotFoundException("Event not found with id: %d".formatted(id));
     }
 }

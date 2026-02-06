@@ -6,6 +6,6 @@ package com.eventmanagement.exception;
 public class InvalidPersonalCodeException extends RuntimeException {
 
     public InvalidPersonalCodeException(String personalCode) {
-        super("Invalid Estonian personal code: " + personalCode);
+        super("Invalid Estonian personal code: %s".formatted(personalCode));
     }
 }

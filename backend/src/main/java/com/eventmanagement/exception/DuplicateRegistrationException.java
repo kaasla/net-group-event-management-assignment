@@ -6,6 +6,6 @@ package com.eventmanagement.exception;
 public class DuplicateRegistrationException extends RuntimeException {
 
     public DuplicateRegistrationException(String personalCode, Long eventId) {
-        super("Person with code " + personalCode + " is already registered for event " + eventId);
+        super("Person with code %s is already registered for event %d".formatted(personalCode, eventId));
     }
 }

@@ -6,7 +6,6 @@ package com.eventmanagement.exception;
 public class EventFullException extends RuntimeException {
 
     public EventFullException(Long eventId) {
-        super("Event with id " + eventId + " has reached maximum capacity");
+        super("Event with id %d has reached maximum capacity".formatted(eventId));
     }
 }
-

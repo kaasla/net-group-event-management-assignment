@@ -3,6 +3,7 @@ package com.eventmanagement.controller;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,6 +18,7 @@ import com.eventmanagement.dto.EventResponse;
 import com.eventmanagement.service.EventService;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -28,6 +30,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/api/v1/events")
 @RequiredArgsConstructor
+@Validated
 @Tag(name = "Events", description = "Event management endpoints")
 public class EventController {
 
@@ -53,7 +56,10 @@ public class EventController {
         @ApiResponse(responseCode = "500", description = "Internal server error",
                 content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
     })
-    public EventResponse getEventById(@PathVariable Long id) {
+    public EventResponse getEventById(
+            @Parameter(description = "ID of the event", example = "1")
+            @PathVariable Long id
+    ) {
         return eventService.getEventById(id);
     }
 

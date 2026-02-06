@@ -1,6 +1,7 @@
 package com.eventmanagement.exception;
 
 import java.util.List;
+import java.util.function.Function;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +24,9 @@ import jakarta.servlet.http.HttpServletRequest;
 public class GlobalExceptionHandler {
 
     private static final Logger LOG = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+
+    private static final Function<org.springframework.validation.FieldError, FieldErrorResponse> TO_FIELD_ERROR =
+            error -> new FieldErrorResponse(error.getField(), error.getDefaultMessage());
 
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<ErrorResponse> handleResourceNotFound(
@@ -64,7 +68,7 @@ public class GlobalExceptionHandler {
         List<FieldErrorResponse> fieldErrors = ex.getBindingResult()
                 .getFieldErrors()
                 .stream()
-                .map(error -> new FieldErrorResponse(error.getField(), error.getDefaultMessage()))
+                .map(TO_FIELD_ERROR)
                 .toList();
 
         ErrorResponse response = ErrorResponse.withFieldErrors(
