@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import type { EventResponse } from '../types/api';
 import { getEvents } from '../services/eventService';
 import EventCard from '../components/EventCard';
+import Spinner from '../components/Spinner';
 
 export default function EventListPage() {
   const [events, setEvents] = useState<EventResponse[]>([]);
@@ -16,15 +17,24 @@ export default function EventListPage() {
   }, []);
 
   if (loading) {
-    return <p className="text-gray-500">Loading events...</p>;
+    return <Spinner className="py-16" />;
   }
 
   if (error) {
-    return <p className="text-red-600">{error}</p>;
+    return (
+      <div className="rounded-lg bg-red-50 border border-red-200 p-6 text-center">
+        <p className="text-sm text-red-700">{error}</p>
+      </div>
+    );
   }
 
   if (events.length === 0) {
-    return <p className="text-gray-500">No events yet.</p>;
+    return (
+      <div className="rounded-lg border border-dashed border-gray-300 p-12 text-center">
+        <h2 className="text-lg font-medium text-gray-900">No events yet</h2>
+        <p className="mt-1 text-sm text-gray-500">Events will appear here once created.</p>
+      </div>
+    );
   }
 
   return (

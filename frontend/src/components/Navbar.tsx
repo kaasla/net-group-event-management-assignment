@@ -11,31 +11,31 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="bg-white shadow">
+    <nav className="bg-white shadow-sm border-b border-gray-200">
       <div className="mx-auto max-w-5xl px-4 py-4 flex items-center justify-between">
-        <Link to="/" className="text-xl font-bold text-gray-900">
+        <Link to="/" className="text-xl font-bold text-gray-900 hover:text-indigo-600 transition-colors">
           Event Management
         </Link>
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3">
           {isAdmin && (
             <Link
               to="/events/new"
-              className="text-sm font-medium text-indigo-600 hover:text-indigo-500"
+              className="rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-indigo-500 transition-colors"
             >
-              Create Event
+              + New Event
             </Link>
           )}
           {isAdmin ? (
             <button
               onClick={handleLogout}
-              className="text-sm font-medium text-gray-600 hover:text-gray-500"
+              className="rounded-md border border-gray-300 px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
             >
               Logout
             </button>
           ) : (
             <Link
               to="/login"
-              className="text-sm font-medium text-indigo-600 hover:text-indigo-500"
+              className="rounded-md border border-gray-300 px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
             >
               Admin Login
             </Link>

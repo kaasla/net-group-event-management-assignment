@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import type { RegistrationRequest, ErrorResponse } from '../types/api';
 import { registerParticipant } from '../services/eventService';
+import Alert from './Alert';
 import axios from 'axios';
 
 interface RegistrationFormProps {
@@ -18,6 +19,7 @@ export default function RegistrationForm({ eventId, onSuccess, disabled }: Regis
   const [error, setError] = useState<string | null>(null);
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [submitting, setSubmitting] = useState(false);
+  const [success, setSuccess] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -28,11 +30,13 @@ export default function RegistrationForm({ eventId, onSuccess, disabled }: Regis
     e.preventDefault();
     setError(null);
     setFieldErrors({});
+    setSuccess(false);
     setSubmitting(true);
 
     registerParticipant(eventId, form)
       .then(() => {
         setForm({ firstName: '', lastName: '', personalCode: '' });
+        setSuccess(true);
         onSuccess();
       })
       .catch((err: unknown) => {
@@ -52,8 +56,21 @@ export default function RegistrationForm({ eventId, onSuccess, disabled }: Regis
       .finally(() => setSubmitting(false));
   };
 
+  const inputClass = (field: string) =>
+    `mt-1 block w-full rounded-md border px-3 py-2 text-sm shadow-sm transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 disabled:bg-gray-100 ${
+      fieldErrors[field] ? 'border-red-300' : 'border-gray-300'
+    }`;
+
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
+      {success && (
+        <Alert
+          message="Registration successful!"
+          type="success"
+          onDismiss={() => setSuccess(false)}
+        />
+      )}
+
       <div>
         <label htmlFor="firstName" className="block text-sm font-medium text-gray-700">
           First Name
@@ -64,10 +81,10 @@ export default function RegistrationForm({ eventId, onSuccess, disabled }: Regis
           value={form.firstName}
           onChange={handleChange}
           disabled={disabled || submitting}
-          className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-sm shadow-sm focus:border-indigo-500 focus:ring-indigo-500 disabled:bg-gray-100"
+          className={inputClass('firstName')}
         />
         {fieldErrors.firstName && (
-          <p className="mt-1 text-sm text-red-600">{fieldErrors.firstName}</p>
+          <p className="mt-1 text-xs text-red-600">{fieldErrors.firstName}</p>
         )}
       </div>
 
@@ -81,10 +98,10 @@ export default function RegistrationForm({ eventId, onSuccess, disabled }: Regis
           value={form.lastName}
           onChange={handleChange}
           disabled={disabled || submitting}
-          className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-sm shadow-sm focus:border-indigo-500 focus:ring-indigo-500 disabled:bg-gray-100"
+          className={inputClass('lastName')}
         />
         {fieldErrors.lastName && (
-          <p className="mt-1 text-sm text-red-600">{fieldErrors.lastName}</p>
+          <p className="mt-1 text-xs text-red-600">{fieldErrors.lastName}</p>
         )}
       </div>
 
@@ -98,19 +115,20 @@ export default function RegistrationForm({ eventId, onSuccess, disabled }: Regis
           value={form.personalCode}
           onChange={handleChange}
           disabled={disabled || submitting}
-          className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-sm shadow-sm focus:border-indigo-500 focus:ring-indigo-500 disabled:bg-gray-100"
+          placeholder="e.g. 49403136515"
+          className={inputClass('personalCode')}
         />
         {fieldErrors.personalCode && (
-          <p className="mt-1 text-sm text-red-600">{fieldErrors.personalCode}</p>
+          <p className="mt-1 text-xs text-red-600">{fieldErrors.personalCode}</p>
         )}
       </div>
 
-      {error && <p className="text-sm text-red-600">{error}</p>}
+      {error && <Alert message={error} type="error" />}
 
       <button
         type="submit"
         disabled={disabled || submitting}
-        className="w-full rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-500 disabled:bg-gray-400 disabled:cursor-not-allowed"
+        className="w-full rounded-md bg-indigo-600 px-4 py-2.5 text-sm font-medium text-white hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
       >
         {submitting ? 'Registering...' : 'Register'}
       </button>
