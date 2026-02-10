@@ -74,7 +74,7 @@ pnpm install
 pnpm dev
 ```
 
-The frontend dev server runs at http://localhost:5173 and proxies `/api` requests to the backend at `localhost:8080`.
+The frontend dev server runs at http://localhost:5173
 
 ## Database
 
