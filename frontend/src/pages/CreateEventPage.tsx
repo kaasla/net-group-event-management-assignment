@@ -126,7 +126,6 @@ export default function CreateEventPage() {
             <input
               id="maxParticipants"
               type="number"
-              min="1"
               value={maxParticipants}
               onChange={(e) => setMaxParticipants(e.target.value)}
               disabled={submitting}
