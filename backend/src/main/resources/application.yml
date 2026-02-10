@@ -3,7 +3,7 @@ spring:
     name: event-management
 
   datasource:
-    url: jdbc:postgresql://localhost:5434/event_management
+    url: jdbc:postgresql://localhost:5432/event_management
     username: app
     password: app_secret
     hikari:
