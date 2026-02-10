@@ -22,7 +22,7 @@ Full API documentation is available via Swagger UI at http://localhost:8080/swag
 
 ## Validation
 
-- **Estonian personal code** — 11-digit code validated with checksum verification
+- **Estonian personal code** — 11-digit code validated with checksum verification. Use [ID code generator](https://dknight.github.io/Isikukood-js/) to generate valid codes for testing
 - **Event capacity** — registration is rejected when an event reaches its max participants
 - **Duplicate registration** — a person cannot register for the same event twice (enforced by unique constraint on event_id + personal_code)
 
