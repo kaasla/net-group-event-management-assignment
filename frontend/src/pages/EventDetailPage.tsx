@@ -60,8 +60,8 @@ export default function EventDetailPage() {
         &larr; Back to events
       </Link>
 
-      <div className="mt-4 rounded-lg bg-white p-6 shadow-sm border border-gray-200">
-        <h1 className="text-2xl font-bold text-gray-900">{event.name}</h1>
+      <div className="mt-4 rounded-lg bg-white p-6 shadow-sm border border-gray-200 overflow-hidden">
+        <h1 className="text-2xl font-bold text-gray-900 break-words">{event.name}</h1>
         <p className="mt-1.5 text-sm text-gray-500">{formatDate(event.dateTime)}</p>
         <div className="mt-4 flex flex-wrap items-center gap-4 text-sm">
           <span className="text-gray-600">

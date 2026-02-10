@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 import { useAuth } from '../hooks/useAuth';
 import { createEvent } from '../services/eventService';
 import type { ErrorResponse } from '../types/api';
@@ -11,7 +13,7 @@ export default function CreateEventPage() {
   const navigate = useNavigate();
 
   const [name, setName] = useState('');
-  const [dateTime, setDateTime] = useState('');
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [maxParticipants, setMaxParticipants] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
@@ -29,9 +31,15 @@ export default function CreateEventPage() {
     setFieldErrors({});
     setSubmitting(true);
 
+    if (!selectedDate) {
+      setFieldErrors({ dateTime: 'Date and time is required' });
+      setSubmitting(false);
+      return;
+    }
+
     createEvent({
       name,
-      dateTime: new Date(dateTime).toISOString(),
+      dateTime: selectedDate.toISOString(),
       maxParticipants: Number(maxParticipants),
     })
       .then((event) => navigate(`/events/${event.id}`))
@@ -94,13 +102,23 @@ export default function CreateEventPage() {
             <label htmlFor="dateTime" className="block text-sm font-medium text-gray-700">
               Date and Time
             </label>
-            <input
+            <DatePicker
               id="dateTime"
-              type="datetime-local"
-              value={dateTime}
-              onChange={(e) => setDateTime(e.target.value)}
+              selected={selectedDate}
+              onChange={(date: Date | null) => setSelectedDate(date)}
+              showTimeSelect
+              timeIntervals={15}
+              showMonthDropdown
+              showYearDropdown
+              dropdownMode="select"
+              dateFormat="dd/MM/yyyy HH:mm"
+              timeFormat="HH:mm"
+              minDate={new Date()}
+              placeholderText="Select date and time"
               disabled={submitting}
               className={inputClass('dateTime')}
+              wrapperClassName="w-full"
+              autoComplete="off"
             />
             {fieldErrors.dateTime && (
               <p className="mt-1 text-xs text-red-600">{fieldErrors.dateTime}</p>

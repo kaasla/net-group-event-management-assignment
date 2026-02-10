@@ -14,7 +14,7 @@ export default function EventCard({ event }: EventCardProps) {
       to={`/events/${event.id}`}
       className="group block rounded-lg bg-white p-6 shadow-sm border border-gray-200 hover:shadow-md hover:border-indigo-200 transition-all"
     >
-      <h2 className="text-lg font-semibold text-gray-900 group-hover:text-indigo-600 transition-colors">
+      <h2 className="text-lg font-semibold text-gray-900 group-hover:text-indigo-600 transition-colors truncate">
         {event.name}
       </h2>
       <p className="mt-1.5 text-sm text-gray-500">{formatDate(event.dateTime)}</p>

@@ -9,12 +9,12 @@ import jakarta.validation.constraints.Size;
 @Schema(description = "Request payload for registering a participant to an event")
 public record RegistrationRequest(
         @NotBlank(message = "First name is required")
-        @Size(max = 100, message = "First name must not exceed 100 characters")
+        @Size(max = 50, message = "First name must not exceed 50 characters")
         @Schema(description = "Participant's first name", example = "Mari")
         String firstName,
 
         @NotBlank(message = "Last name is required")
-        @Size(max = 100, message = "Last name must not exceed 100 characters")
+        @Size(max = 50, message = "Last name must not exceed 50 characters")
         @Schema(description = "Participant's last name", example = "Tamm")
         String lastName,
 

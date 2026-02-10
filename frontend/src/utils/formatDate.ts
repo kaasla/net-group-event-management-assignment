@@ -1,5 +1,5 @@
 export function formatDate(iso: string): string {
-  return new Date(iso).toLocaleDateString('et-EE', {
+  return new Date(iso).toLocaleDateString('en-GB', {
     day: 'numeric',
     month: 'long',
     year: 'numeric',

@@ -18,7 +18,7 @@ Password: admin123
 
 ## API Documentation
 
-Full API documentation is available via Swagger UI at http://localhost:8080/swagger-ui.html when the backend is running.
+Full API documentation is available via Swagger UI at http://localhost:8080/swagger-ui.html when the backend is running. For ease of testing, all endpoints are accessible without authentication in Swagger. In a production environment, admin endpoints would be secured.
 
 ## Validation
 

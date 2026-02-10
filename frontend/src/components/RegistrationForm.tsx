@@ -117,7 +117,6 @@ export default function RegistrationForm({ eventId, onSuccess, disabled }: Regis
           value={form.personalCode}
           onChange={handleChange}
           disabled={disabled || submitting}
-          placeholder="e.g. 49403136515"
           className={inputClass('personalCode')}
         />
         {fieldErrors.personalCode && (
