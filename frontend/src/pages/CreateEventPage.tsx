@@ -31,15 +31,9 @@ export default function CreateEventPage() {
     setFieldErrors({});
     setSubmitting(true);
 
-    if (!selectedDate) {
-      setFieldErrors({ dateTime: 'Date and time is required' });
-      setSubmitting(false);
-      return;
-    }
-
     createEvent({
       name,
-      dateTime: selectedDate.toISOString(),
+      dateTime: selectedDate ? selectedDate.toISOString() : '',
       maxParticipants: Number(maxParticipants),
     })
       .then((event) => navigate(`/events/${event.id}`))
