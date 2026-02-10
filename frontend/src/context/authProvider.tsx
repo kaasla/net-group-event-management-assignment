@@ -5,9 +5,7 @@ import { AuthContext } from './authContext';
 import type { AuthContextValue } from './authContext';
 
 export default function AuthProvider({ children }: { children: ReactNode }) {
-  const [token, setToken] = useState<string | null>(
-    () => localStorage.getItem('token'),
-  );
+  const [token, setToken] = useState<string | null>(() => localStorage.getItem('token'));
 
   const login = useCallback(async (data: Parameters<AuthContextValue['login']>[0]) => {
     const response = await loginApi(data);

@@ -69,9 +69,7 @@ export default function EventDetailPage() {
           </span>
           <span
             className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${
-              isFull
-                ? 'bg-red-100 text-red-700'
-                : 'bg-green-100 text-green-700'
+              isFull ? 'bg-red-100 text-red-700' : 'bg-green-100 text-green-700'
             }`}
           >
             {isFull ? 'Full' : `${event.availableSpots} spots left`}
@@ -84,14 +82,12 @@ export default function EventDetailPage() {
           <h2 className="text-lg font-semibold text-gray-900 mb-4">Register</h2>
           {isFull ? (
             <div className="rounded-lg bg-red-50 border border-red-200 p-6 text-center">
-              <p className="text-sm font-medium text-red-700">This event has reached maximum capacity.</p>
+              <p className="text-sm font-medium text-red-700">
+                This event has reached maximum capacity.
+              </p>
             </div>
           ) : (
-            <RegistrationForm
-              eventId={eventId}
-              onSuccess={fetchData}
-              disabled={isFull}
-            />
+            <RegistrationForm eventId={eventId} onSuccess={fetchData} disabled={isFull} />
           )}
         </div>
 

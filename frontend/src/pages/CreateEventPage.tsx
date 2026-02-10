@@ -40,7 +40,9 @@ export default function CreateEventPage() {
           const data = err.response.data as ErrorResponse;
           if (data.fieldErrors) {
             const mapped: Record<string, string> = {};
-            data.fieldErrors.forEach((fe) => { mapped[fe.field] = fe.message; });
+            data.fieldErrors.forEach((fe) => {
+              mapped[fe.field] = fe.message;
+            });
             setFieldErrors(mapped);
           } else {
             setError(data.message);
@@ -85,9 +87,7 @@ export default function CreateEventPage() {
               disabled={submitting}
               className={inputClass('name')}
             />
-            {fieldErrors.name && (
-              <p className="mt-1 text-xs text-red-600">{fieldErrors.name}</p>
-            )}
+            {fieldErrors.name && <p className="mt-1 text-xs text-red-600">{fieldErrors.name}</p>}
           </div>
 
           <div>

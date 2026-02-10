@@ -44,7 +44,9 @@ export default function RegistrationForm({ eventId, onSuccess, disabled }: Regis
           const data = err.response.data as ErrorResponse;
           if (data.fieldErrors) {
             const mapped: Record<string, string> = {};
-            data.fieldErrors.forEach((fe) => { mapped[fe.field] = fe.message; });
+            data.fieldErrors.forEach((fe) => {
+              mapped[fe.field] = fe.message;
+            });
             setFieldErrors(mapped);
           } else {
             setError(data.message);

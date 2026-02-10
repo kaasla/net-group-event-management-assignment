@@ -13,7 +13,10 @@ export default function Navbar() {
   return (
     <nav className="bg-white shadow-sm border-b border-gray-200">
       <div className="mx-auto max-w-5xl px-4 py-4 flex items-center justify-between">
-        <Link to="/" className="text-xl font-bold text-gray-900 hover:text-indigo-600 transition-colors">
+        <Link
+          to="/"
+          className="text-xl font-bold text-gray-900 hover:text-indigo-600 transition-colors"
+        >
           Event Management
         </Link>
         <div className="flex items-center gap-3">

@@ -1,8 +1,12 @@
 import api from './api';
-import type { CreateEventRequest, EventResponse, ParticipantResponse, RegistrationRequest } from '../types/api';
+import type {
+  CreateEventRequest,
+  EventResponse,
+  ParticipantResponse,
+  RegistrationRequest,
+} from '../types/api';
 
-export const getEvents = () =>
-  api.get<EventResponse[]>('/events').then((res) => res.data);
+export const getEvents = () => api.get<EventResponse[]>('/events').then((res) => res.data);
 
 export const getEventById = (id: number) =>
   api.get<EventResponse>(`/events/${id}`).then((res) => res.data);
