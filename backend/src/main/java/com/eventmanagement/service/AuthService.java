@@ -28,7 +28,11 @@ public class AuthService {
     }
 
     private boolean isValidCredentials(LoginRequest request) {
-        return adminProperties.admin().email().equals(request.email())
-                && passwordEncoder.matches(request.password(), adminProperties.admin().password());
+        String configuredPassword = adminProperties.admin().password();
+        boolean emailMatches = adminProperties.admin().email().equals(request.email());
+        boolean passwordMatches = configuredPassword.startsWith("$2a$")
+                ? passwordEncoder.matches(request.password(), configuredPassword)
+                : request.password().equals(configuredPassword);
+        return emailMatches && passwordMatches;
     }
 }

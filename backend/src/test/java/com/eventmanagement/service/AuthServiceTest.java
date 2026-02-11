@@ -32,10 +32,25 @@ class AuthServiceTest {
     private AuthService authService;
 
     @Test
-    void loginShouldReturnTokenForValidCredentials() {
+    void loginShouldReturnTokenForPlainTextPassword() {
         given(adminProperties.admin())
-                .willReturn(new AdminProperties.Admin("admin@test.com", "hashed"));
-        given(passwordEncoder.matches("password", "hashed")).willReturn(true);
+                .willReturn(new AdminProperties.Admin("admin@test.com", "password"));
+        given(jwtService.generateToken("admin@test.com")).willReturn("jwt-token");
+        given(jwtService.getExpirationMs()).willReturn(3600000L);
+
+        LoginResponse response = authService.login(
+                new LoginRequest("admin@test.com", "password"));
+
+        assertThat(response.token()).isEqualTo("jwt-token");
+        assertThat(response.tokenType()).isEqualTo("Bearer");
+        assertThat(response.expiresIn()).isEqualTo(3600000L);
+    }
+
+    @Test
+    void loginShouldReturnTokenForBcryptPassword() {
+        given(adminProperties.admin())
+                .willReturn(new AdminProperties.Admin("admin@test.com", "$2a$10$hash"));
+        given(passwordEncoder.matches("password", "$2a$10$hash")).willReturn(true);
         given(jwtService.generateToken("admin@test.com")).willReturn("jwt-token");
         given(jwtService.getExpirationMs()).willReturn(3600000L);
 
@@ -50,8 +65,7 @@ class AuthServiceTest {
     @Test
     void loginShouldThrowWhenPasswordIsWrong() {
         given(adminProperties.admin())
-                .willReturn(new AdminProperties.Admin("admin@test.com", "hashed"));
-        given(passwordEncoder.matches("wrong", "hashed")).willReturn(false);
+                .willReturn(new AdminProperties.Admin("admin@test.com", "password"));
 
         assertThatThrownBy(() -> authService.login(
                 new LoginRequest("admin@test.com", "wrong")))
@@ -61,7 +75,7 @@ class AuthServiceTest {
     @Test
     void loginShouldThrowWhenEmailIsWrong() {
         given(adminProperties.admin())
-                .willReturn(new AdminProperties.Admin("admin@test.com", "hashed"));
+                .willReturn(new AdminProperties.Admin("admin@test.com", "password"));
 
         assertThatThrownBy(() -> authService.login(
                 new LoginRequest("wrong@test.com", "password")))
